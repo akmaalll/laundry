@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable()->default('text');
+            $table->string('nama')->nullable();
             $table->integer('harga')->unsigned()->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

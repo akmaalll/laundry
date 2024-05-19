@@ -14,22 +14,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/login', function () {
     return view('admin.login');
 });
+
+
+Route::prefix('produk')->group(function () {
+    Route::get('/', 'App\Http\Controllers\Admin\ProdukController@index')->name('index.produk');
+    Route::get('/create', 'App\Http\Controllers\Admin\ProdukController@create')->name('create.produk');
+    Route::post('/store', 'App\Http\Controllers\Admin\ProdukController@store')->name('store.produk');
+    Route::get('/edit/{id}', 'App\Http\Controllers\Admin\ProdukController@edit')->name('edit.produk');
+    Route::put('/update/{id}', 'App\Http\Controllers\Admin\ProdukController@update')->name('update.produk');
+    Route::delete('/delete/{id}', 'App\Http\Controllers\Admin\ProdukController@destroy')->name('destroy.produk');
+});
+
+Route::prefix('customer')->group(function () {
+    Route::get('/', 'App\Http\Controllers\Admin\CustomerController@index')->name('index.customer');
+    Route::get('/create', 'App\Http\Controllers\Admin\CustomerController@create')->name('create.customer');
+    Route::post('/store', 'App\Http\Controllers\Admin\CustomerController@store')->name('store.customer');
+    Route::get('/edit/{id}', 'App\Http\Controllers\Admin\CustomerController@edit')->name('edit.customer');
+    Route::put('/update/{id}', 'App\Http\Controllers\Admin\CustomerController@update')->name('update.customer');
+    Route::delete('/delete/{id}', 'App\Http\Controllers\Admin\CustomerController@destroy')->name('destroy.customer');
+});
+
 Route::get('/register', function () {
     return view('admin.register');
 });
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
-});
-Route::get('/produk', function () {
-    return view('admin.produk.index');
-});
-Route::get('/customer', function () {
-    return view('admin.customer.index');
 });
 Route::get('/transaksi', function () {
     return view('admin.transaksi.index');

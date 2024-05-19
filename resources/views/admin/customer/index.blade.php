@@ -18,6 +18,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Customer</h4>
+                            <a href="{{ route('create.customer') }}"><button class="btn btn-primary mb-3">Tambah
+                                    Data</button></a>
                             <div class="table-responsive">
                                 <table class="table table-bordered verticle-middle">
                                     <thead>
@@ -30,72 +32,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>john dea</td>
-                                            <td>0987654321</td>
-                                            <td>johndea@gmail.com</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $v)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $v->nama }}</td>
+                                                <td>{{ $v->no_hp }}</td>
+                                                <td>{{ $v->email }}</td>
+                                                <td>
+                                                    <span>
+                                                        <a href="{{ route('edit.customer', $v->id) }}"
+                                                            class="btn btn-warning" data-toggle="tooltip"
+                                                            data-placement="top" title="Edit"><i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('destroy.customer', $v->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-close color-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

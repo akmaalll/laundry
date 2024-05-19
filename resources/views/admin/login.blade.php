@@ -45,7 +45,7 @@
                                     <h4>LOGIN</h4>
                                 </a>
 
-                                <form class="mt-5 mb-5 login-input">
+                                <form class="mt-5 mb-5 login-input" action="/dashboard">
                                     <div class="form-group">
                                         <input type="email" class="form-control" placeholder="Email">
                                     </div>

@@ -1,10 +1,10 @@
 <div class="nav-header">
     <div class="brand-logo">
         <a href="index.html">
-            <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-            <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+            <b class="logo-abbr"><img src="{{ asset('admin/images/logo.png') }}" alt=""> </b>
+            <span class="logo-compact"><img src="{{ asset('admin/images/logo-compact.png') }}" alt="ss"></span>
             <span class="brand-title">
-                <img src="images/logo-text.png" alt="">
+                <img src="{{ asset('admin/images/logo-text.png') }}" alt="s">
             </span>
         </a>
     </div>

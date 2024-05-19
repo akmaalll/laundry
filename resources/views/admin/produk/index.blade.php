@@ -18,67 +18,45 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Produk</h4>
+                            <a href="{{ route('create.produk') }}"><button class="btn btn-primary mb-3">Tambah
+                                    Data</button></a>
+
                             <div class="table-responsive">
                                 <table class="table table-bordered verticle-middle">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
+                                            <th scope="col">Kode Produk</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Harga</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Kiloan</td>
-                                            <td>5.000</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>boneka</td>
-                                            <td>7.000</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Karpet</td>
-                                            <td>15.000</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Setrika</td>
-                                            <td>2.000</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>One Day Service</td>
-                                            <td>15.000</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $v)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $v->id }}</td>
+                                                <td>{{ $v->nama }}</td>
+                                                <td>{{ $v->harga }}</td>
+                                                <td>
+                                                    <span>
+                                                        <a href="{{ route('edit.produk', $v->id) }}" class="btn btn-warning"
+                                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                                class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('destroy.produk', $v->id) }}" method="POST"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-close color-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

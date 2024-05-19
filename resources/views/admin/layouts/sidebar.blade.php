@@ -9,12 +9,12 @@
             </li>
             <li class="nav-label">Apps</li>
             <li>
-                <a href="/produk" aria-expanded="false">
+                <a href="{{ route('index.produk') }}" aria-expanded="false">
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">Produk</span>
                 </a>
             </li>
             <li>
-                <a href="/customer" aria-expanded="false">
+                <a href="{{ route('index.customer') }}" aria-expanded="false">
                     <i class="icon-badge menu-icon"></i><span class="nav-text">Costumer</span>
                 </a>
             </li>
