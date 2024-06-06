@@ -36,17 +36,23 @@ Route::prefix('customer')->group(function () {
     Route::delete('/delete/{id}', 'App\Http\Controllers\Admin\CustomerController@destroy')->name('destroy.customer');
 });
 
+Route::get('/get-harga-produk', 'App\Http\Controllers\Admin\TransaksiController@getHarga');
+
+Route::prefix('transaksi')->group(function () {
+    Route::get('/', 'App\Http\Controllers\Admin\TransaksiController@index')->name('index.transaksi');
+    Route::get('/create', 'App\Http\Controllers\Admin\TransaksiController@create')->name('create.transaksi');
+    Route::post('/store', 'App\Http\Controllers\Admin\TransaksiController@store')->name('store.transaksi');
+    Route::put('/{transaksi}/update-status', 'App\Http\Controllers\Admin\TransaksiController@updateStatus')->name('transaksi.update-status');
+    Route::get('/edit/{id}', 'App\Http\Controllers\Admin\TransaksiController@edit')->name('edit.transaksi');
+    Route::put('/update/{id}', 'App\Http\Controllers\Admin\TransaksiController@update')->name('update.transaksi');
+    Route::delete('/delete/{id}', 'App\Http\Controllers\Admin\TransaksiController@destroy')->name('destroy.transaksi');
+});
+
 Route::get('/register', function () {
     return view('admin.register');
 });
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
-});
-Route::get('/transaksi', function () {
-    return view('admin.transaksi.index');
-});
-Route::get('/create/transaksi', function () {
-    return view('admin.transaksi.create');
 });
 
 

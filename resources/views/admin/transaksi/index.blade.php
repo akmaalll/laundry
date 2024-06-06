@@ -27,33 +27,47 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th>No Invoice</th>
+                                            {{-- <th>No Invoice</th>
                                             <th>Tanggal</th>
-                                            <th>Waktu</th>
+                                            <th>Waktu</th> --}}
                                             <th>Customer</th>
                                             <th>Produk</th>
+                                            <th>berat</th>
+                                            <th>Harga/Kg</th>
                                             <th>Total</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>001</td>
-                                            <td>15</td>
-                                            <td>20.00</td>
-                                            <td>user1</td>
-                                            <td>Kiloan</td>
-                                            <td>15.000</td>
-                                            <td><button class="btn mb-1 btn-rounded btn-danger">Belum
-                                                    Lunas</button></td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $v)
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{ $v->pelanggan->nama }}</td>
+                                                <td>{{ $v->produk->nama }}</td>
+                                                <td>{{ $v->berat }}</td>
+                                                <td>{{ $v->produk->harga }}</td>
+                                                <td>{{ $v->jumlah }}</td>
+                                                <td>
+                                                    <form method="POST"
+                                                        action="{{ route('transaksi.update-status', $v->id) }}">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn mb-1 btn-rounded 
+                                                            {{ $v->status == 'belum_lunas' ? 'btn-danger' : 'btn-success' }}">
+                                                            {{ $v->status == 'belum_lunas' ? 'belum_lunas' : 'lunas' }}
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td><span><a href="#" data-toggle="tooltip" data-placement="top"
+                                                            title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a><a href="#" data-toggle="tooltip" data-placement="top"
+                                                            title="Close"><i
+                                                                class="fa fa-close color-danger"></i></a></span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -64,16 +78,16 @@
             <!-- #/ container -->
         </div>
         <!--**********************************
-                    Content body end
-                ***********************************-->
+                                                                                    Content body end
+                                                                                ***********************************-->
 
 
         <!--**********************************
-                    Footer start
-                ***********************************-->
+                                                                                    Footer start
+                                                                                ***********************************-->
         <!--**********************************
-                    Footer end
-                    ***********************************-->
+                                                                                    Footer end
+                                                                                    ***********************************-->
         {{-- <div class="footer">
                 <div class="copyright">
                     <p>Copyright &copy; Designed & Developed by <a

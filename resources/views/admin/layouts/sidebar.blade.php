@@ -23,8 +23,8 @@
                     <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Transaksi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/create/transaksi">Transaksi</a></li>
-                    <li><a href="/transaksi">List Transaksi</a></li>
+                    <li><a href="{{ route('create.transaksi') }}">Transaksi</a></li>
+                    <li><a href="{{ route('index.transaksi') }}">List Transaksi</a></li>
                 </ul>
             </li>
         </ul>

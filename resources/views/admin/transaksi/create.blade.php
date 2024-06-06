@@ -19,14 +19,19 @@
                             <h4 class="card-title">Tambah Data Transaksi</h4>
 
                             <div class="form-validation">
-                                <form class="form-valide" action="#" method="post">
+                                <form class="form-valide" action="{{ route('store.transaksi') }}" method="post">
+                                    @csrf
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="val-username">Nama <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
-                                                placeholder="Enter a username..">
+                                            <select class="form-control" name="pelanggan_id" id="val-skill">
+                                                <option>-- Pilih Pelanggan --</option>
+                                                @foreach ($pelanggan as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -34,12 +39,30 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="val-skill">
+                                            <select class="form-control" name="produk_id" id="produk">
                                                 <option>-- Pilih Produk --</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
+                                                @foreach ($produk as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                                @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-username">Harga <span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" value="" id="harga"
+                                                name="harga" placeholder="Masukkan Harga.." readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-username">Berat<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <input type="text" id="berat" class="form-control" name="berat"
+                                                placeholder="Masukkan Berat.." onkeyup="hitungTotal()">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -47,7 +70,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
+                                            <input type="text" class="form-control" id="total" name="jumlah"
                                                 placeholder="Masukkan Jumlah..">
                                         </div>
                                     </div>
@@ -63,24 +86,42 @@
                 </div>
             </div>
         </div>
-
-        <!--**********************************
-                Content body end
-            ***********************************-->
-
-
-        <!--**********************************
-                Footer start
-            ***********************************-->
-        <!--**********************************
-                Footer end
-                ***********************************-->
-        {{-- <div class="footer">
-                <div class="copyright">
-                    <p>Copyright &copy; Designed & Developed by <a
-                            href="https://themeforest.net/user/quixlab">Quixlab</a>
-                        2018</p>
-                </div>
-            </div> --}}
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function hitungTotal() {
+            var berat = parseFloat(document.getElementById("berat").value);
+            var harga = parseFloat(document.getElementById("harga").value);
+
+            if (!isNaN(berat) && !isNaN(harga)) {
+                var jumlah = berat * harga;
+                document.getElementById("total").value = jumlah.toFixed();
+            } else {
+                document.getElementById("total").value = "";
+            }
+        }
+    </script>
+    <script>
+        $('#produk').change(function() {
+            var produk_id = $(this).val();
+            console.log(produk_id);
+            $.ajax({
+                url: '/get-harga-produk',
+                type: 'GET',
+                data: {
+                    produk_id: produk_id
+                },
+                success: function(response) {
+                    $('#harga').val(response.harga);
+                    hitungTotal();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr
+                        .responseText);
+                    alert("Terjadi kesalahan saat mengambil data harga produk. Silakan coba lagi.");
+                }
+            });
+        });
+    </script>
 @endsection
